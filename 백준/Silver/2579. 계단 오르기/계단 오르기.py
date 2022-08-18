@@ -31,12 +31,12 @@ if N >= 3:
         score[i][1] = max(score[i - 2][0], score[i - 2][1]) + stair[i]
 
 # 최대 점수만을 리스트에 담아준다.
-# score_max = []
-# for score_pair in score:
-#     score_max.append(max(score_pair))
+score_max = []
+for score_pair in score:
+    score_max.append(max(score_pair))
 
-# print(score_max[N - 1])
+print(score_max[N - 1])
 
 # N번째 값만을 찾을 거면 다음과 같은 방식도 된다. (더 빠름)
-score_max = max(score[N - 1])
-print(score_max)
+# score_max = max(score[N - 1])
+# print(score_max)
