@@ -8,7 +8,7 @@ N, M = map(int, input().split())
 
 numbers = list(map(int, input().split()))
 
-# 누적합 리스트를 먼저 만들어 둔다.
+# 누적합 리스트를 먼저 만들어 둔다.(시간복잡도 O(N))
 sum_numbers= [0, numbers[0]]
 for i in range(1, N):
     sum_numbers.append(numbers[i] + sum_numbers[-1])
