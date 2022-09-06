@@ -1,4 +1,4 @@
-# [Silver IV] 주유소 - 13305 
+# [Silver III] 주유소 - 13305 
 
 [문제 링크](https://www.acmicpc.net/problem/13305) 
 
