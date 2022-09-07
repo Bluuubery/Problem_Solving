@@ -59,7 +59,6 @@ while end <= 334 and flag:
                 end = times[1]
                 cnt += 1
                 # 선택한 꽃을 제거한다(시간 단축 및 에러 방지용)
-                flower.remove(times)
                 # 탐색 중단
                 break
     # 다음 꽃이 없으면 중단한다.
