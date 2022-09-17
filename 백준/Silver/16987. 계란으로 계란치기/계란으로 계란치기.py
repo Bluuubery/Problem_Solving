@@ -26,8 +26,8 @@ def back_tracking(current):
     # 글로벌 변수 선언
     global ans
 
-    # 마지막 계란까지 탐색 했을 때
-    if current == N:
+    # 마지막 계란까지 탐색 했을 때 or 현재 계란을 제외한 모든 계란이 이미 깨졌을 때 or 모든 계란이 이미 깨졌을 때 
+    if current == N or sum(broken) == N - 1 or sum(broken) == N:
         # 정답 갱신 후 반환
         ans = max(sum(broken), ans)
         return
@@ -37,16 +37,10 @@ def back_tracking(current):
         # 다음 계란으로 넘어간다.
         back_tracking(current + 1)
 
-    # 현재 계란을 제외한 모든 계란이 깨졌을 경우
-    elif broken[current] == 0 and sum(broken) == N - 1:
-        # 바로 정답 갱신 후 반환
-        ans = max(sum(broken), ans)
-        return
-
+        
     # pruning
     elif sum(broken) + (N - current) * 2 <= ans:
         return
- 
 
     # 그 외 일반적인 경우
     else:
