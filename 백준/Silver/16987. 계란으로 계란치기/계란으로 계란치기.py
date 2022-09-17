@@ -43,6 +43,11 @@ def back_tracking(current):
         ans = max(sum(broken), ans)
         return
 
+    # pruning
+    elif sum(broken) + (N - current) * 2 <= ans:
+        return
+ 
+
     # 그 외 일반적인 경우
     else:
         for i in range(N):
