@@ -10,8 +10,10 @@ atexit.register(lambda: os.write(1, stdout.getvalue()))
 
 # 정답코드
 
+# N: 수빈이의 위치, K: 동생의 위치
 N, K = map(int, input().split())
 
+# visited: 방문여부 표시 배열
 visited = [0 for _ in range(200_001)]
 
 
@@ -24,18 +26,20 @@ def bfs(s, e, t):
         v, t = queue.popleft()
 
         if v == e:
-            ans = min(ans, t)
+            print(visited[v])
+            return
+            # ans = min(ans, t)
         
         for w in (v * 2, v - 1, v + 1):
             if 0 <= w < 200_001 and visited[w] == 0:
                 if w == v * 2:
-                    visited[w] = 1
+                    visited[w] = visited[v]
                     queue.append((w, t))
                 else:
-                    visited[w] = 1
+                    visited[w] = visited[v] + 1
                     queue.append((w, t + 1))
 
-    print(ans)
+    # print(ans)
     return
 
 bfs(N, K, 0)
