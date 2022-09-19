@@ -17,29 +17,33 @@ N, K = map(int, input().split())
 visited = [0 for _ in range(200_001)]
 
 
-def bfs(s, e, t):
+# bfs 함수 선언
+def bfs(s, e):
     queue = deque()
-    queue.append((s, t))
-    ans = sys.maxsize
+    queue.append(s)
 
     while queue:
-        v, t = queue.popleft()
+        v = queue.popleft()
 
+        # 목표 지점 도착 시 시간 출력 후 반환
         if v == e:
             print(visited[v])
             return
-            # ans = min(ans, t)
         
+        # v * 2의 시간이 0이므로 v * 2 먼저 방문
         for w in (v * 2, v - 1, v + 1):
             if 0 <= w < 200_001 and visited[w] == 0:
+                # v * 2는 시간을 더해주지 않는다.
                 if w == v * 2:
                     visited[w] = visited[v]
-                    queue.append((w, t))
+                    queue.append(w)
+                # 그 외는 시간을 더해주면서 탐색한다.
                 else:
                     visited[w] = visited[v] + 1
-                    queue.append((w, t + 1))
+                    queue.append(w)
 
-    # print(ans)
     return
 
-bfs(N, K, 0)
+
+# bfs 탐색 실시
+bfs(N, K)
