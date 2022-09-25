@@ -11,7 +11,9 @@ atexit.register(lambda: os.write(1, stdout.getvalue()))
 
 R, C = map(int, input().split())
 board = [list(input()) for _ in range(R)]
-visited = set(board[0][0],)
+visited = [False for _ in range(26)]
+
+visited[ord(board[0][0]) - ord('A')] = True
 
 char_set = set()
 for r in range(R):
@@ -40,13 +42,13 @@ def back_tracking(r, c, cnt):
         nr = r + dr[i]
         nc = c + dc[i]
         if 0 <= nr < R and 0 <= nc < C:
-            if board[nr][nc] not in visited:
+            if not visited[ord(board[nr][nc]) - ord('A')]:
 
-                visited.add(board[nr][nc])
+                visited[ord(board[nr][nc]) - ord('A')] = True
 
                 back_tracking(nr, nc, cnt + 1)
 
-                visited.remove(board[nr][nc])
+                visited[ord(board[nr][nc]) - ord('A')] = False
 
     else:
         ans = max(ans, cnt)
