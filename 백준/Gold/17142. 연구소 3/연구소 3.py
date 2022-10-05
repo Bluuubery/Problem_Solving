@@ -11,11 +11,13 @@ atexit.register(lambda: os.write(1, stdout.getvalue()))
 
 # 정답코드
 
-
+# 델타 탐색 방향 설정
 dr = [-1, 1, 0, 0]
 dc = [0, 0, -1, 1]
 
+# 바이러스 확산 bfs
 def bfs(queue):
+    # 활성 상태로 변한 비활성 바이러스를 담을 리스트
     activated = []
 
     while queue:
@@ -25,32 +27,40 @@ def bfs(queue):
             nr = r + dr[i]
             nc = c + dc[i]
             if 0 <= nr < N and 0 <= nc < N:
+                # 빈 공간이면 바이러스 확산
                 if arr_copy[nr][nc] == -10:
                     arr_copy[nr][nc] = arr_copy[r][c] + 1
                     queue.append((nr, nc))
 
+                # 비활성 바이러스일 경우 일단 바이러스 확산 후 리스트에 담아준다.
                 if arr_copy[nr][nc] == -2:
                     arr_copy[nr][nc] = arr_copy[r][c] + 1
                     activated.append((nr, nc))
                     queue.append((nr, nc))
                     
-
+    # 빈 공간이 남아있을 경우
     for r in range(N):
         for c in range(N):
             if arr_copy[r][c] == -10:
                 return sys.maxsize   
-                
-    for row, col in activated:
-        arr_copy[row][col] = -2
 
+    # 비활성 -> 활성 바이러스들을 0으로 초기화 시켜줘서 확산 시간을 게산에 영향을 안 미치도록 한다
+    for row, col in activated:
+        arr_copy[row][col] = 0
+
+    # 확산 시간 반환
     return max(map(max, arr_copy))
 
 
+
+# N: 연구소의 크기, M: 바이러스의 개수
 N, M = map(int, input().split())
+# arr: 연구소 상태
 arr = [list(map(int, input().split())) for _ in range(N)]
+# virus: 바이러스를 놓을 위치
 virus = []
 
-
+# 빈 공간을 -10으로 초기화해주고 바이러스의 위치를 담아준다.
 for r in range(N):
     for c in range(N):
         if arr[r][c] == 0:
@@ -61,30 +71,29 @@ for r in range(N):
             arr[r][c] = -2
             virus.append((r, c))
 
-
+# ans: 바이러스 전체 확산 시간 (충분히 큰 값으로 초기화)
 ans = sys.maxsize
 
+# 바이러스를 놓을 위치를 고른다.
 for comb in combinations(virus, M):
+    # arr_copy: bfs 탐색용 배열 복사본
     arr_copy = [arr[i][:] for i in range(N)]
 
+    # 바이러스의 위치 큐에 담아주기
     queue = deque()
     for loc in comb:
         queue.append(loc)
         r, c = loc
         arr_copy[r][c] = 0
 
-    
+    # 정답 갱신해가면서 bfs 탐색
     ans = min(bfs(queue), ans)
-    # print(comb)
-    # print(bfs(queue))
-    # for row in arr_copy:
-    #     print(row)
-    
+
+# 다 확산 시키지 못할 경우 -1 출력
 if ans == sys.maxsize:
     print(-1)
+# 정답 출력
 else:
     print(ans)
-
-
 
 
