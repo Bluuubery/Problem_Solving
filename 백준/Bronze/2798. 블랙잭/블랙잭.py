@@ -17,18 +17,34 @@ cards = list(map(int, input().split()))
 ans = 0
 min_diff = 9999999
 
-for comb in combinations(cards, 3):
-    if sum(comb) == M:
-        ans = M
-        break
+# for comb in combinations(cards, 3):
+#     if sum(comb) == M:
+#         ans = M
+#         break
 
-    diff = M - sum(comb)
+#     diff = M - sum(comb)
 
-    if diff < 0:
-        continue
+#     if diff < 0:
+#         continue
 
-    if  diff < min_diff:
-        min_diff = diff
-        ans = sum(comb)
+#     if  diff < min_diff:
+#         min_diff = diff
+#         ans = sum(comb)
+
+# print(ans)
+
+for i in range(N):
+    for j in range(i + 1, N):
+        for k in range(j + 1, N):
+            card_sum = cards[i] + cards[j] + cards[k]
+
+            diff  = M - card_sum
+
+            if diff < 0:
+                continue
+
+            if diff < min_diff:
+                min_diff = diff
+                ans = card_sum
 
 print(ans)
