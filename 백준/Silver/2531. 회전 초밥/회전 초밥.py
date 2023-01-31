@@ -14,19 +14,21 @@ sushi = list()
 for _ in range(N):
     sushi.append(int(input()))
 
+# 회전 고려해서 k만큼 뒤에 추가
 sushi = sushi + sushi[:k] 
 
 ans = 0
 for i in range(N):
 
+    # 슬라이딩 윈도우
     eat = sushi[i:i + k]
-    # print(eat)
     eat = set(eat)
 
+    # 쿠폰 초밥 포함
     if c in eat:
         ans = max(ans, len(eat))
+    # 미포함
     else:
         ans = max(ans, len(eat) + 1)
 
-# print(sushi)
 print(ans)
