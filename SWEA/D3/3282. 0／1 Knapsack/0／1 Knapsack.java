@@ -14,9 +14,10 @@ public class Solution {
 
     static int[] volume;
     static int[] price;
+    static int[][] dp;
 
     static int knapsack(int N, int K, int[] volume, int[] price){
-        int[][] dp = new int[N + 1][K + 1];
+        dp = new int[N + 1][K + 1];
 
         for (int i = 0; i <= N; i++) {
             for (int j = 0; j <= K; j++) {
