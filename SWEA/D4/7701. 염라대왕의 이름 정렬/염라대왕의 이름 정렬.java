@@ -13,55 +13,37 @@ public class Solution {
 
     private static int T, N;
 
-    private static HashSet<String> hashSet;
+    private static Set<String> set;
 
     public static void main(String[] args) throws IOException {
 
         T = Integer.parseInt(br.readLine());
-        hashSet = new HashSet<>();
+        set = new TreeSet<>(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                if (o1.length() != o2.length()) {
+                    return o1.length() - o2.length();
+                } else {
+                    return o1.compareTo(o2);
+                }
+            }
+        });
 
         for (int t = 1; t <= T; t++) {
             sb.append("#").append(t).append("\n");
 
-            hashSet.clear();
+            set.clear();
 
             N = Integer.parseInt(br.readLine());
 
             for (int i = 0; i <N; i++) {
-                hashSet.add(br.readLine());
+                set.add(br.readLine());
             }
 
-//            String[] strings = hashSet.toArray(new String[0]);
-//
-//            Arrays.sort(strings, new Comparator<String>() {
-//                @Override
-//                public int compare(String o1, String o2) {
-//                    if (o1.length() != o2.length()) {
-//                        return o1.length() - o2.length();
-//                    } else {
-//                        return o1.compareTo(o2);
-//                    }
-//                }
-//            });
-//
-//            for (String s :
-//                    strings) {
-//             sb.append(s + "\n") ;
-//            }
+            for (String s:set) {
+                sb.append(s).append("\n");
+            }
 
-            hashSet.stream()
-                    .sorted(new Comparator<String>() {
-                        @Override
-                        public int compare(String o1, String o2) {
-                            if (o1.length() != o2.length()) {
-                                return o1.length() - o2.length();
-                            } else {
-                                return o1.compareTo(o2);
-                            }
-                        }
-                    })
-                    .map(s -> s + "\n")
-                    .forEach(sb::append);
         }
         System.out.println(sb);
 
