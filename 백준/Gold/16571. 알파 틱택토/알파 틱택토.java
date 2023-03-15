@@ -36,17 +36,17 @@ public class Main {
 
     private static int backtracking (int turn) {
 
-//        이긴 경우 (턴 넘어가고 체크하니까 반대로)
+//        직전 턴(상대방)이 이긴 경우
         if (check(3 - turn))
             return -1;
 
-
+//        res: 상대의 경우
         int res = 2;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (board[i][j] == 0) {
                     board[i][j] = turn;
-//                    최선의 수는 이긴 경우 (-1)
+//                    상대의 경우 최소화
                     res = Math.min(res, backtracking(3 - turn));
                     board[i][j] = 0;
                 }
